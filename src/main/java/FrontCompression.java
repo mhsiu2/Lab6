@@ -44,8 +44,48 @@ public class FrontCompression {
         /*
          * Complete this function.
          */
+        String currentWord = "", previousWord = "", compressedResult = "";
+        int commonPrefixLength = 0, compareIndex = 0;
+        boolean commonPrefixEnd = false;
+        for (int index = 0; index < corpus.length(); index++) {
+            /**
+             * Copy next word into currentWord.
+             */
+            if (corpus.charAt(index) != '\n') {
+                currentWord += corpus.charAt(index);
+                continue;
+            }
+            /**
+             * Calculate length of common prefix with previousWord.
+             */
+            while (compareIndex < currentWord.length() && compareIndex < previousWord.length()) {
+                if (currentWord.charAt(compareIndex) != previousWord.charAt(compareIndex)) {
+                    commonPrefixEnd = true;
+                }
+                if (!commonPrefixEnd) {
+                    commonPrefixLength++;
+                }
+                compareIndex++;
+            }
+            /**
+             * Add compressed output to compressedResult.
+             */
+            compressedResult += (commonPrefixLength + ' ');
+            for (int i = commonPrefixLength; i < currentWord.length(); i++) {
+                compressedResult += currentWord.charAt(i);
+            }
+            compressedResult += '\n';
+            /**
+             * Reset variables.
+             */
+            previousWord = currentWord;
+            currentWord = "";
+            commonPrefixLength = 0;
+            compareIndex = 0;
+            commonPrefixEnd = false;
+        }
 
-        return "";
+        return compressedResult;
     }
 
     /**
@@ -67,6 +107,8 @@ public class FrontCompression {
         /*
          * Complete this function.
          */
+
+        String currentCompress = "", previousWord = "", decompressedResult = "";
 
         return "";
     }
